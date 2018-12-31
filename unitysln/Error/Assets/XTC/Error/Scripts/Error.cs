@@ -3,7 +3,7 @@
      All rights reserved.
 *********************************************************************/
 
-namespace XTC
+namespace XTC.Types
 {
     public class Error
     {
