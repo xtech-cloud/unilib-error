@@ -7,6 +7,11 @@ namespace XTC
 {
     public class Error
     {
+        public const int NULL = -1;
+        public const int PARAM = -2;
+        public const int ACCESS = -3;
+        public const int EXCEPTION = -99;
+
         public int code {get; private set;}
         public string message{get; private set;}
         private static Error ok_ = new Error(0, "");
@@ -30,22 +35,34 @@ namespace XTC
             }
         }
 
+        public bool IsOK
+        {
+            get{
+                return code == 0;
+            }
+        }
+
         public static Error NewNullErr(string _message, params object[] _args)
         {
             string message = string.Format(_message, _args);
-            return new Error(-1, message);
+            return new Error(NULL, message);
         }
 
         public static Error NewParamErr(string _message, params object[] _args)
         {
             string message = string.Format(_message, _args);
-            return new Error(-2, message);
+            return new Error(PARAM, message);
         }
 
         public static Error NewAccessErr(string _message, params object[] _args)
         {
             string message = string.Format(_message, _args);
-            return new Error(-3, message);
+            return new Error(ACCESS, message);
+        }
+
+        public static Error NewException(System.Exception _ex)
+        {
+            return new Error(EXCEPTION, _ex.Message);
         }
     }//class
 }//namespace
